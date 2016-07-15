@@ -62,11 +62,12 @@ Vagrant.configure(2) do |config|
     sh.inline = <<-EOT
       echo 'DOCKER_EXTRA_ARGS="--userland-proxy=false \
         --bip=#{DOCKER0_IP}/16 --dns=#{DOCKER0_IP}"' >> /etc/default/docker
-      /etc/init.d/docker restart
+      /etc/init.d/docker restart v1.10.3
     EOT
   end
 
   config.vm.provision :docker do |d|
+    d.pull_images "ailispaw/dnsdock"
     d.run "dnsdock",
       image: "ailispaw/dnsdock",
       args: "-v /var/run/docker.sock:/var/run/docker.sock -p 0.0.0.0:53:53/udp",
