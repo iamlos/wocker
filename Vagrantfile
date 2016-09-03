@@ -19,6 +19,7 @@ DOCKER0_IP = "172.17.0.1"
 Vagrant.configure(2) do |config|
   config.vm.define "wocker"
   config.vm.box = "ailispaw/barge"
+  config.vm.box_version = ">= 2.2.1"
 
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
@@ -62,7 +63,7 @@ Vagrant.configure(2) do |config|
     sh.inline = <<-EOT
       echo 'DOCKER_EXTRA_ARGS="--userland-proxy=false \
         --bip=#{DOCKER0_IP}/16 --dns=#{DOCKER0_IP}"' >> /etc/default/docker
-      /etc/init.d/docker restart v1.10.3
+      /etc/init.d/docker restart
     EOT
   end
 
