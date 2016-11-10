@@ -72,7 +72,7 @@ Vagrant.configure(2) do |config|
     d.run "dnsdock",
       image: "ailispaw/dnsdock",
       args: "-v /var/run/docker.sock:/var/run/docker.sock -p 0.0.0.0:53:53/udp",
-      cmd: "-domain=#{DNS_DOMAIN}"
+      cmd: "--domain=#{DNS_DOMAIN}"
   end
 
   config.vm.provision :shell do |sh|
